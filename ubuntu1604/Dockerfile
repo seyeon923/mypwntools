@@ -50,5 +50,6 @@ RUN rm -r Python-3.8.19
 RUN python3 -m pip install -U pip
 RUN python3 -m pip install pwntools
 
-
 WORKDIR /root
+
+CMD [ "bash" ]
