@@ -52,4 +52,6 @@ RUN python3 -m pip install pwntools
 
 WORKDIR /root
 
+ENV LC_ALL=C.UTF-8
+
 CMD [ "bash" ]
