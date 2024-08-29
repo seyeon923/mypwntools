@@ -15,7 +15,7 @@ WORKDIR /usr/local/lib/pwndbg
 RUN git checkout 2020.07.23
 RUN ./setup.sh
 
-# Install one_gadget
+# Install ruby
 WORKDIR /root
 
 RUN wget https://github.com/postmodern/ruby-install/releases/download/v0.9.3/ruby-install-0.9.3.tar.gz
@@ -28,6 +28,8 @@ RUN rm -rf ruby-install-0.9.3
 
 RUN ruby-install --update
 RUN ruby-install --system ruby 3.3.4
+
+# Install one_gadget
 RUN gem install one_gadget
 
 # Install Python 
@@ -53,5 +55,12 @@ RUN python3 -m pip install pwntools
 WORKDIR /root
 
 ENV LC_ALL=C.UTF-8
+
+# Install seccomp-tools
+RUN gem install seccomp-tools
+
+# Install patchelf
+RUN apt install -y patchelf
+
 
 CMD [ "bash" ]
