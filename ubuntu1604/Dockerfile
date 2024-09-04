@@ -62,5 +62,18 @@ RUN gem install seccomp-tools
 # Install patchelf
 RUN apt install -y patchelf
 
+# Install ghidra
+RUN apt update
+RUN apt install -y software-properties-common
+RUN add-apt-repository ppa:openjdk-r/ppa  
+RUN apt update   
+RUN apt install -y openjdk-17-jdk unzip
+WORKDIR /root
+RUN wget https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_11.1.2_build/ghidra_11.1.2_PUBLIC_20240709.zip
+RUN unzip ghidra_11.1.2_PUBLIC_20240709.zip -d /usr/local/lib
+RUN rm ghidra_11.1.2_PUBLIC_20240709.zip
+RUN echo 'export PATH=${PATH}:/usr/local/lib/ghidra_11.1.2_PUBLIC' > ~/.bashrc
+WORKDIR /root
+
 
 CMD [ "bash" ]
