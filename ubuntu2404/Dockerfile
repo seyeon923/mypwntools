@@ -41,4 +41,8 @@ RUN rm ghidra_11.1.2_PUBLIC_20240709.zip
 RUN echo 'export PATH=${PATH}:/usr/local/lib/ghidra_11.1.2_PUBLIC' > ~/.bashrc
 WORKDIR /root
 
+# Add checksec alias
+RUN echo 'pwn checksec "$@"' > /usr/bin/checksec
+RUN chmod a+x /usr/bin/checksec
+
 CMD [ "bash" ]
