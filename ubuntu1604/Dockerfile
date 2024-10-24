@@ -73,7 +73,20 @@ RUN wget https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghid
 RUN unzip ghidra_11.1.2_PUBLIC_20240709.zip -d /usr/local/lib
 RUN rm ghidra_11.1.2_PUBLIC_20240709.zip
 RUN echo 'export PATH=${PATH}:/usr/local/lib/ghidra_11.1.2_PUBLIC' > ~/.bashrc
-WORKDIR /root
 
+WORKDIR /opt
+RUN apt install gawk
+RUN wget http://ftp.gnu.org/gnu/libc/glibc-2.28.tar.gz
+RUN tar -xvf glibc-2.28.tar.gz
+RUN mkdir /opt/glibc-2.28/build
+WORKDIR /opt/glibc-2.28/build
+RUN ../configure --prefix=/opt/glibc
+RUN make -j$(nproc)
+RUN make install
+RUN cp /opt/glibc/lib/*-2.28* /lib/x86_64-linux-gnu/
+WORKDIR /opt
+RUN rm -rf glibc*
+
+WORKDIR /root
 
 CMD [ "bash" ]
